@@ -4,24 +4,24 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  React.useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_API_URL);
-    fetch(process.env.NEXT_PUBLIC_API_URL + "/api/status")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: "React POST Request Example" }),
-    };
-    fetch(process.env.NEXT_PUBLIC_API_URL + "/api/hello", requestOptions)
-      .then((response) => response.json())
-      .then((data) => console.log("POST ", data));
-  });
+  //   React.useEffect(() => {
+  //     console.log(process.env.NEXT_PUBLIC_API_URL);
+  //     fetch(process.env.NEXT_PUBLIC_API_URL + "/api/status")
+  //       .then((res) => {
+  //         return res.json();
+  //       })
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //     const requestOptions = {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ title: "React POST Request Example" }),
+  //     };
+  //     fetch(process.env.NEXT_PUBLIC_API_URL + "/api/hello", requestOptions)
+  //       .then((response) => response.json())
+  //       .then((data) => console.log("POST ", data));
+  //   });
 
   return (
     <div className={styles.container}>

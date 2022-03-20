@@ -2,8 +2,16 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import clientPromise from "../lib/mongodb";
 
-export default function Home() {
+export default function Home({ isConnected, users }) {
+  React.useEffect(() => {
+    callMongo();
+  });
+
+  function callMongo() {
+    console.log("callMongo ", users);
+  }
   //   React.useEffect(() => {
   //     console.log(process.env.NEXT_PUBLIC_API_URL);
   //     fetch(process.env.NEXT_PUBLIC_API_URL + "/api/status")
@@ -33,6 +41,14 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        {isConnected ? (
+          <h2 className="subtitle">You are connected to MongoDB</h2>
+        ) : (
+          <h2 className="subtitle">
+            You are NOT connected to MongoDB. Check the <code>README.md</code>{" "}
+            for instructions.
+          </h2>
+        )}
 
         <p className={styles.description}>
           Get started by editing{" "}
@@ -84,4 +100,22 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  try {
+    const client = await clientPromise;
+    const db = client.db("meshmill-test");
+    let users = await db.collection("users").find({}).toArray();
+    users = JSON.parse(JSON.stringify(users));
+    console.log(users);
+    return {
+      props: { isConnected: true, users },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: { isConnected: false },
+    };
+  }
 }

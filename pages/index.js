@@ -177,8 +177,8 @@ export default function Home({ isConnected, users }) {
                 Unreal Assets
               </h1>
               <div class="grid grid-cols-6 gap-2 px-16">
-                {unrealAssets.map((e) => (
-                  <div class="flex flex-col gap-1">
+                {unrealAssets.map((e, i) => (
+                  <div class="flex flex-col gap-1" key={i}>
                     <a href="" class="bg-purple-500">
                       <img
                         src={e.imgUrl}
